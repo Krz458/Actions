@@ -1,0 +1,69 @@
+body{
+    /*  Background image from www.vecteezy.com  */
+    background-image: url(img/ZZ191.jpg);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.bad{
+    color: red;
+}
+
+tr ,td{
+    border-style: solid;
+    border-color: rgb(105, 102, 102);
+}
+
+#contener{
+    background-color: beige;
+    width: 800px;;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-self: center;
+}
+
+.offers{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.show-login{
+    color:rgb(154, 18, 172);
+}
+
+.enter-field{
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.entered-announcement{
+    color:rgb(17, 189, 89);
+}
+
+.offer-left{
+    margin-left:10px;
+    margin-right:2.5px;
+    width: 400px;
+    display: inline-block;
+}
+
+.offer-right{
+    margin-left:2.5px;
+    margin-right:10px;
+    margin-bottom: 2px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.delete-account{
+    width: 400px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
+
+.avatar{
+    margin-bottom: 15px;
+}
