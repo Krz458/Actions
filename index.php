@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-
+    require 'connect/connect.php';
     $_SESSION['o_index'] = true;
 
     function showUsersIndex() {
@@ -9,7 +9,7 @@
         echo '<table class="table table-bordered">';
         echo'<tr><th class="table-dark">heading</th><th>price</th><th>date of issue</th><th>e-mail</th><th>category</th></tr>';
 
-        require 'connect/connect.php';
+        global $connect;
             foreach($connect->query('SELECT offers.heading, offers.price, currencies.currency, offers.date, users.email, offers.id, category.category, category.id FROM offers, users, currencies, category WHERE offers.user_id = users.id AND currencies.id = offers.currency AND category.id = offers.category GROUP BY offers.id') as $row){
                     print_r ('<tr><td><a href="show-announcement.php?id=' . $row[5] . '">' . $row[0] . '</a>' . ' <img style="width:120px;" src="announcement/images/'. $row[5] . '.png" alt = " "/>' . '</td><td>' . $row[1] . " " . $row[2] . '</td><td>' . $row[3] . '</td><td>' . $row[4] . '</td><td><a href="index.php?category_id=' . $row[7] . '">' . $row[6] . '</a></td></tr>');
             }
@@ -21,7 +21,7 @@
         echo '<table class="table table-bordered">';
         echo'<tr><th class="table-dark">heading</th><th>price</th><th>date of issue</th><th>e-mail</th><th>category</th></tr>';
 
-        require 'connect/connect.php';
+        global $connect;
         $query = $connect->prepare('SELECT offers.heading, offers.price, currencies.currency, offers.date, users.email, offers.id, category.category FROM offers, users, currencies, category WHERE offers.user_id = users.id AND currencies.id = offers.currency AND category.id = offers.category AND offers.category = :categoryId');
         $query->bindValue(':categoryId', $_GET['category_id']);
         $query->execute();
@@ -37,7 +37,7 @@
         echo '<table class="table table-bordered">';
         echo'<tr><th class="table-dark">heading</th><th>price</th><th>date of issue</th><th>e-mail</th><th>category</th><th>action</th></tr>';
 
-        require 'connect/connect.php';
+        global $connect;
             foreach($connect->query('SELECT offers.heading, offers.price, currencies.currency, offers.date, users.email, offers.id, category.category, category.id FROM offers, users, currencies, category WHERE offers.user_id = users.id AND currencies.id = offers.currency AND category.id = offers.category GROUP BY offers.id') as $row){
                     print_r ('<tr><td><a href="show-announcement.php?id=' . $row[5] . '">' . $row[0] . '</a>' . ' <img style="width:120px;" src="announcement/images/'. $row[5] . '.png" alt = " "/>' . '</td><td>' . $row[1] . " " . $row[2] . '</td><td>' . $row[3] . '</td><td>' . $row[4] . '</td><td><a href="index.php?category_id=' . $row[7] . '">' . $row[6] . '</a></td><td><a href="admin/delete_announcement.php?id=' . $row[5] . '"><button>delete</button></a></td></tr>');
             }
@@ -49,7 +49,7 @@
         echo '<table class="table table-bordered">';
         echo'<tr><th class="table-dark">heading</th><th>price</th><th>date of issue</th><th>e-mail</th><th>category</th><th>action</th></tr>';
 
-        require 'connect/connect.php';
+        global $connect;
         $query = $connect->prepare('SELECT offers.heading, offers.price, currencies.currency, offers.date, users.email, offers.id, category.category FROM offers, users, currencies, category WHERE offers.user_id = users.id AND currencies.id = offers.currency AND category.id = offers.category AND offers.category = :categoryId');
         $query->bindValue(':categoryId', $_GET['category_id']);
         $query->execute();
@@ -81,7 +81,7 @@
             unset($_SESSION['deleted_offer']);
         }
 
-            include 'connect/connect.php';
+            global $connect;
 
             $query = $connect->query('SELECT category.id, category.category FROM category');
             echo '<table class="table table-bordered"><tr>';
@@ -140,7 +140,7 @@
         <?php
 
             function getCategoryName(){
-                include 'connect/connect.php';
+                global $connect;
         
                 $query = $connect->prepare('SELECT category FROM category WHERE category.id = :categoryId');
                 $query->bindValue(':categoryId', $_GET['category_id']);
